@@ -21,6 +21,17 @@
 		"type": "module"
 	},
 
+	"commands": {
+		"_execute_action": {
+			"suggested_key": {
+				"default": "Alt+S",
+				"windows": "Alt+S",
+				"mac": "Alt+S",
+				"linux": "Alt+S"
+			}
+		}
+	},
+
 	"web_accessible_resources": [
 		{
 			"resources": [

@@ -92,7 +92,7 @@ styleSheetElem.innerHTML = `
 		padding: 0.6em;
 		position: fixed;
 		z-index: 1000;
-		left: 25%;
+		left: 33%;
 		bottom: 2em;
 		width: max-content;
 		translate: 0 280%;
