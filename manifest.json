@@ -1,0 +1,41 @@
+{
+	"manifest_version": 3,
+	"minimum_chrome_version": "112",
+	"offline_enabled": true,
+	"name": "GitSaver - Save github's files & folders",
+	"short_name": "GitSaver",
+	"description": "Save selected github files & folder in desired folder without creating zip file. No API limit",
+	"version": "0.0.1",
+
+	"icons": {
+		"128": "icon_128.png",
+		"16": "icon.png"
+	},
+
+	"action": {
+		"default_title": "Open GitSaver"
+	},
+
+	"background": {
+		"service_worker": "background/background.js",
+		"type": "module"
+	},
+
+	"web_accessible_resources": [
+		{
+			"resources": [
+				"scripts/fileExtractor.js",
+				"scripts/save-button/db.js",
+				"scripts/save-button/dir-handle.js",
+				"scripts/save-button/directory-tree.js",
+				"scripts/save-button/gitsaver-button.js",
+				"scripts/style/style.css",
+				"scripts/style/folder-tree.css"
+			],
+			"matches": ["<all_urls>"]
+		}
+	],
+
+	"permissions": ["activeTab", "storage", "scripting"],
+	"host_permissions": ["https://github.com/*/*"]
+}

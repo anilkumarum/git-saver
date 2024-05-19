@@ -1,0 +1,110 @@
+directory-tree {
+	--stem-clr: hsl(0, 0%, 70%);
+	position: absolute;
+	top: 35px;
+	left: 0;
+	z-index: 100;
+	min-width: 26ch;
+	width: max-content;
+	padding: 0.4em;
+	border-radius: 0 0 0.4em 0.4em;
+	box-shadow: var(--card);
+	background-color: var(--popup-bgc);
+	scale: 1 0;
+	transform-origin: top;
+	transition: scale 400ms ease-out;
+}
+
+/* tree-view */
+ul {
+	--pd-left: 2em;
+	--vrt-stem-left: 0.4em;
+	padding-left: var(--pd-left);
+	margin-block: 0;
+	position: relative;
+	isolation: isolate;
+	animation: nested-open 500ms ease-out forwards;
+
+	&::before {
+		content: " ";
+		position: absolute;
+		height: 100%;
+		width: 2px;
+		background-color: var(--stem-clr);
+		left: 0.4em;
+		top: -0.23em;
+	}
+
+	&:hover::before {
+		background-color: red;
+	}
+
+	& li {
+		list-style-type: none;
+		position: relative;
+
+		&::before {
+			content: " ";
+			position: absolute;
+			height: 2px;
+			width: calc(var(--pd-left) - var(--vrt-stem-left));
+			background-color: var(--stem-clr);
+			top: 0.8em;
+			left: calc(var(--vrt-stem-left) - var(--pd-left));
+			z-index: -1;
+		}
+
+		&:hover::before {
+			background-color: red;
+		}
+	}
+}
+
+li > div {
+	cursor: pointer;
+	border-radius: 0.2em;
+
+	&.selected {
+		background-color: rgba(241, 82, 82, 0.7);
+	}
+
+	&:hover {
+		background-color: hsl(285, 72%, 89%);
+	}
+
+	&:active {
+		outline: 1px dashed rgb(145, 7, 145);
+	}
+
+	& span {
+		font-size: 0.9rem;
+	}
+
+	& svg[open] path {
+		d: path(
+			"M6.1,10L4,18V8H21A2,2 0 0,0 19,6H12L10,4H4A2,2 0 0,0 2,6V18A2,2 0 0,0 4,20H19C19.9,20 20.7,19.4 20.9,18.5L23.2,10H6.1M19,18H6L7.6,12H20.6L19,18Z"
+		);
+	}
+}
+
+@keyframes nested-open {
+	from {
+		scale: 0;
+	}
+
+	to {
+		scale: 1;
+	}
+}
+
+button.add-folder {
+	display: block;
+	border: none;
+	border-radius: 1em;
+	padding: 0.2em 0.5em;
+	margin-inline: auto;
+	margin-top: 0.4em;
+	background-color: var(--main-clr);
+	color: #ffff;
+	cursor: pointer;
+}
