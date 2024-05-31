@@ -1,0 +1,16 @@
+{
+	"extName": {
+		"message": "GitSaver – Dateien und Ordner von GitHub-Repos speichern",
+		"description": "Extension name"
+	},
+
+	"extDescription": {
+		"message": "Speichern Sie ausgewählte Dateien und Ordner von GitHub-Repos im gewünschten Ordner, ohne eine ZIP-Datei zu erstellen. Kein API-Limit",
+		"description": "Extension description"
+	},
+
+	"save_files": {
+		"message": "Dateien speichern",
+		"description": "Save Files"
+	}
+}

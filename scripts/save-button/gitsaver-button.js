@@ -1,4 +1,4 @@
-import { getDirHandle, writeGithubFilesToLocalDisk } from "./dir-handle.js";
+import { getDirHandle, requestAccess, writeGithubFilesToLocalDisk } from "./dir-handle.js";
 import { GithubFileExtractor } from "../fileExtractor.js";
 import { DirectoryTree } from "./directory-tree.js";
 import { getFolder } from "./db.js";
@@ -27,12 +27,14 @@ export class GitsaverButton extends HTMLElement {
 		const selectedFolder = this.folderTree.selectedFolder;
 		const folderPath = this.folderTree.selectedFolderPath;
 		let destinationFolder;
-		if (inputPath === folderPath) destinationFolder = selectedFolder;
+		if (selectedFolder && inputPath === folderPath) destinationFolder = selectedFolder;
 		else {
 			const slashIdx = inputPath.indexOf("/", 1);
 			const baseDirName = inputPath.slice(0, slashIdx);
 			try {
 				const dirHandle = this.folderTree.dirHandle ?? (await getFolder(baseDirName));
+				const granted = await requestAccess(dirHandle);
+				if (!granted) return alert("Permission denied");
 				const dirPath = inputPath.slice(slashIdx + 1).replaceAll(excludeRx, "");
 				destinationFolder = await getDirHandle(dirHandle, dirPath);
 			} catch (error) {
@@ -49,12 +51,13 @@ export class GitsaverButton extends HTMLElement {
 				promises.push(writeGithubFilesToLocalDisk(destinationFolder, fileUrls));
 			}
 			//await Promise.all(promises);
-			Promise.all(promises);
 			this.updateUi(true);
 			const lastFolderPath = inputPath.startsWith("/") ? inputPath.slice(1) : inputPath;
 			chrome.storage.local.set({ lastFolderPath });
 			toast("Selected files saved");
+			await Promise.all(promises);
 		} catch (error) {
+			console.log(error);
 			alert(error.message);
 		}
 	}
@@ -71,7 +74,7 @@ export class GitsaverButton extends HTMLElement {
 				<svg viewBox="0 0 24 24">
 					<path></path>
 				</svg>
-				<span>Save Files</span>
+				<span>${chrome.i18n.getMessage("save_files")}</span>
 			</button>`;
 	}
 
@@ -90,8 +93,15 @@ export class GitsaverButton extends HTMLElement {
 		this.folderTree.addEventListener("selectfolder", (evt) => (this.pathInput.value = evt["detail"]));
 		this.btnElem = this.shadowRoot.querySelector("button");
 		this.btnElem.addEventListener("click", this.extractGithubFiles.bind(this));
-		chrome.storage.local.get("lastFolderPath").then(({ lastFolderPath }) => {
-			this.pathInput.value = lastFolderPath ?? "";
+		chrome.storage.local.get("lastFolderPath").then(async ({ lastFolderPath }) => {
+			if (!lastFolderPath) return;
+			const index = lastFolderPath.indexOf("/");
+			const dirName = index === -1 ? lastFolderPath : lastFolderPath.slice(0, index);
+			const dirHandle = await getFolder(dirName);
+			if (!dirHandle) return;
+			this.pathInput.value = lastFolderPath;
+			this.folderTree.dirHandle = dirHandle;
+			this.folderTree.selectedFolderPath = lastFolderPath;
 		});
 	}
 }

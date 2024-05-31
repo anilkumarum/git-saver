@@ -3,7 +3,7 @@ export class GithubFileExtractor {
 
 	getDirectoryFiles(entries, dirPath) {
 		const fileUrls = [];
-		const path = dirPath.slice(dirPath.indexOf("/") + 1);
+		const path = dirPath?.slice(this.basePath.length + 1); //get relative path from open folder
 		for (const entry in entries) {
 			if (entry.includes(".")) {
 				const fileName = dirPath ? `${path}/${entry}` : entry;
@@ -37,6 +37,7 @@ export class GithubFileExtractor {
 		const repoIndex = path.indexOf("/", path.indexOf("/", 1) + 1);
 		this.repoPath = path.slice(1, repoIndex === -1 ? path.length : repoIndex);
 		this.branch = document.getElementById("branch-picker-repos-header-ref-selector").textContent.trimStart();
+		this.basePath = path.slice(path.indexOf(`/${this.branch}/`) + this.branch.length + 2);
 		if (!this.branch) return toast("Branch name not available");
 
 		for (const checkElem of selectedFiles) {

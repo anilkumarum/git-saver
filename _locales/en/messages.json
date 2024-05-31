@@ -1,0 +1,16 @@
+{
+	"extName": {
+		"message": "GitSaver - Save github repos' files & folders",
+		"description": "Extension name"
+	},
+
+	"extDescription": {
+		"message": "Save selected github  repos' files & folders in desired folder without creating zip file. No API limit",
+		"description": "Extension description"
+	},
+
+	"save_files": {
+		"message": "Save Files",
+		"description": "Save Files"
+	}
+}

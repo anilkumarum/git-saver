@@ -5,7 +5,8 @@ function insertSaveCheckBox() {
 	if (!fileTable) return;
 	const rows = fileTable.tBodies[0].rows;
 	for (let index = 1; index < rows.length; index++) {
-		rows[index].cells[1]?.firstElementChild.prepend(createInputElem());
+		const cellElem = rows[index].cells[1]?.firstElementChild;
+		cellElem?.querySelector('input[name="codebook"]') ?? cellElem?.prepend(createInputElem());
 	}
 
 	const inputElem = createInputElem();
@@ -13,7 +14,7 @@ function insertSaveCheckBox() {
 	rows[0].cells[0].appendChild(inputElem);
 	inputElem.addEventListener("change", toggleMarkAll);
 
-	fileTable.addEventListener("change", insertClipBtn.bind(null, fileTable), { once: true });
+	fileTable.onchange = insertClipBtn.bind(null, fileTable);
 }
 insertSaveCheckBox();
 
@@ -29,7 +30,8 @@ function toggleMarkAll({ target }) {
 }
 
 async function insertClipBtn(fileTable, { target }) {
-	if (target.name !== "codebook") return fileTable.addEventListener("change", insertClipBtn, { once: true });
+	fileTable.onchange = null;
+	document.querySelector("gitsaver-button");
 	if (document.querySelector("gitsaver-button")) return;
 	const saveBtn = document.createElement("gitsaver-button");
 	const btnUrl = chrome.runtime.getURL("/scripts/save-button/gitsaver-button.js");
@@ -72,11 +74,11 @@ styleSheetElem.innerHTML = `
 		margin-left: -18px;
 		opacity: 0;
 		transition: opacity 200ms ease-out;
+		cursor:pointer;
 
 		&:hover,&:checked{
 			opacity: 1;
 		}
-		cursor:pointer;
 	}
 
 	td:nth-of-type(2):hover input[name="codebook"]{

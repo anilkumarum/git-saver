@@ -1,0 +1,16 @@
+{
+	"extName": {
+		"message": "GiGitSaver - 保存 github repos 的文件和文件夹",
+		"description": "Extension name"
+	},
+
+	"extDescription": {
+		"message": "将选定的 GitHub 存储库的文件和文件夹保存在所需文件夹中，而无需创建 zip 文件。无 API 限制",
+		"description": "Extension description"
+	},
+
+	"save_files": {
+		"message": "保存文件",
+		"description": "Save Files"
+	}
+}

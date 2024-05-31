@@ -1,0 +1,16 @@
+{
+	"extName": {
+		"message": "GitSaver — сохранение файлов и папок репозиториев github",
+		"description": "Extension name"
+	},
+
+	"extDescription": {
+		"message": "Сохраните выбранные файлы и папки репозиториев GitHub в нужную папку, не создавая zip-файл. Нет ограничений API",
+		"description": "Extension description"
+	},
+
+	"save_files": {
+		"message": "Сохранить файлы",
+		"description": "Save Files"
+	}
+}

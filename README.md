@@ -1,6 +1,6 @@
 📢 Save selected github files & folder in desired folder without creating zip file
 
-📌 Why you should consider this:
+📌 Why you should consider this:\
 ✪ Lightweight 10Kb only\
 ✪ Github private and public repository\
 ✪ Don't create zip file\
@@ -9,6 +9,8 @@
 ✪ No need to unzip file and move files to destination folder\
 ✪ Pipe streams to reduce memory usage\
 ✪ Disable by default. Enable extension when you need to save files and folder
+
+![gitsaver](./gitsaver.png)
 
 📌 == FEATURES ==
 

@@ -1,0 +1,16 @@
+{
+	"extName": {
+		"message": "GitSaver - github रिपॉजिटरी की फ़ाइलें और फ़ोल्डर्स सहेजें",
+		"description": "Extension name"
+	},
+
+	"extDescription": {
+		"message": "चयनित github repos की फ़ाइलों और फ़ोल्डरों को ज़िप फ़ाइल बनाए बिना वांछित फ़ोल्डर में सहेजें। कोई API सीमा नहीं",
+		"description": "Extension description"
+	},
+
+	"save_files": {
+		"message": "फ़ाइलें संग्रहित करें",
+		"description": "Save Files"
+	}
+}

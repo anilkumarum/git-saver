@@ -46,6 +46,7 @@ export class DirectoryTree extends HTMLElement {
 			const dirItem = new DirPath(dirHandle.name, "/" + dirHandle.name);
 			dirItem.dirs = dirFolders;
 			this.firstElementChild.insertAdjacentHTML("beforeend", this.layerItem(dirItem));
+			this.dirHandle = dirHandle;
 			await saveFolderInDb(dirHandle);
 		} catch (error) {
 			if (navigator["brave"] && error.message === "showDirectoryPicker is not defined")

@@ -7,9 +7,12 @@ export class DirPath {
 	}
 }
 
+const descriptor = { mode: "readwrite" };
+export const requestAccess = async (dirHandle) => (await dirHandle.requestPermission(descriptor)) === "granted";
+
 /**@param {FileSystemDirectoryHandle} dirHandle*/
 export async function createFolderTree(dirHandle) {
-	const isGranted = (await dirHandle["requestPermission"]({ mode: "readwrite" })) === "granted";
+	const isGranted = (await dirHandle["requestPermission"](descriptor)) === "granted";
 	if (!isGranted) return alert("Permission denied");
 
 	const dirTree = [];
